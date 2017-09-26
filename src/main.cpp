@@ -1057,49 +1057,79 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 
     int64_t nSubsidy = 0;
     int64_t nHeight = nBestHeight + 1;
-    nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8); // 8%
+    nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8); // 1%
 
 if(nBestHeight < 10000) 
 	{
-        nSubsidy = nCoinAge * COIN_YEAR_REWARD25 * 33 / (365 * 33 + 8); // 25%
+        nSubsidy = nSubsidy * 25 ; // 25%
     }
-
+else if(nHeight < 50000)
+    {
+           nSubsidy = nSubsidy * 500 ; // 500%
+    }
+else if(nHeight < 60000)
+    {
+           nSubsidy = nSubsidy * 5000 ; // 5000%
+    }
 else if(nHeight < 100000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD12 * 33 / (365 * 33 + 8); // 12%
+           nSubsidy = nSubsidy * 500 ; // 500%
     }
-
+else if(nHeight < 150000)
+    {
+           nSubsidy = nSubsidy * 1000 ; // 1000%
+    }
+else if(nHeight < 160000)
+    {
+           nSubsidy = nSubsidy * 5000 ; // 5000%
+    }
 else if(nHeight < 200000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD7 * 33 / (365 * 33 + 8); // 7%
+           nSubsidy = nSubsidy * 1000 ; // 1000%%
     }
+else if(nHeight < 250000)
+    {
+           nSubsidy = nSubsidy * 500 ; // 500%
+    }
+else if(nHeight < 260000)
+    {
+           nSubsidy = nSubsidy * 5000; // 5000%
+    }        
 else if(nHeight < 300000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD5 * 33 / (365 * 33 + 8); // 5%
+           nSubsidy = nSubsidy * 500 ; // 500%
     }
+else if(nHeight < 350000)
+    {
+           nSubsidy = nSubsidy * 300; // 300%
+    }
+else if(nHeight < 360000)
+    {
+           nSubsidy = nSubsidy * 5000; // 5000%
+    }   
 else if(nHeight < 400000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD3 * 33 / (365 * 33 + 8); // 3%
+           nSubsidy = nSubsidy * 300; // 300%
     }
 else if(nHeight < 500000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD1 * 33 / (365 * 33 + 8); // 1%
+           nSubsidy = nSubsidy * 500 ; // 500%
     }
 else if(nHeight < 1000000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD3 * 33 / (365 * 33 + 8); // 12%
+           nSubsidy = nSubsidy * 300; // 300%
     }
 else if(nHeight < 2000000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD10 * 33 / (365 * 33 + 8); // 10%
+           nSubsidy = nSubsidy * 5000; // 5000%
     }
 else if(nHeight < 5000000)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD3 * 33 / (365 * 33 + 8); // 10%
+           nSubsidy = nSubsidy * 300; // 300%
     }
 else if(nHeight > 5000001)
     {
-           nSubsidy = nCoinAge * COIN_YEAR_REWARD1 * 33 / (365 * 33 + 8); // 10%
+           nSubsidy = nSubsidy * 10 ; // 10%
     }
 
 
@@ -1221,7 +1251,7 @@ static unsigned int GetNextTargetRequiredV2(const CBlockIndex* pindexLast, bool 
 
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake)
 {
-    if (pindexLast->nHeight < 500000000)
+    if (pindexLast->nHeight < 10000)
         return GetNextTargetRequiredV1(pindexLast, fProofOfStake);
     else
         return GetNextTargetRequiredV2(pindexLast, fProofOfStake);
